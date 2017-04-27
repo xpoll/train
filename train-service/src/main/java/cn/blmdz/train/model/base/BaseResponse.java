@@ -1,15 +1,16 @@
-package cn.blmdz.train.model;
-
-import java.util.List;
+package cn.blmdz.train.model.base;
 
 import lombok.Data;
 
+/**
+ * 数据返回
+ */
 @Data
-public class BaseModel<T> {
+public class BaseResponse<T> {
 	private String validateMessagesShowId;
 	private Boolean status;
 	private Integer httpstatus;
 	private Object[] messages;
-	private List<T> date;
+	private T data;
 	private Object validateMessages;
 }

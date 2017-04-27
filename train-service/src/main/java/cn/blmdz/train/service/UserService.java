@@ -1,5 +1,8 @@
 package cn.blmdz.train.service;
 
+/**
+ * 用户相关服务
+ */
 public interface UserService {
 
 	/**

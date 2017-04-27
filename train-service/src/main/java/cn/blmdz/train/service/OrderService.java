@@ -1,5 +1,8 @@
 package cn.blmdz.train.service;
 
+/**
+ * 订单相关服务
+ */
 public interface OrderService {
 
 	/**
