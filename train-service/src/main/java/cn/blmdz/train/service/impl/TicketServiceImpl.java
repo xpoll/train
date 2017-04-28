@@ -3,15 +3,13 @@ package cn.blmdz.train.service.impl;
 import java.util.List;
 
 import cn.blmdz.train.model.req.StopByRequest;
+import cn.blmdz.train.model.res.StopByResponse;
 import cn.blmdz.train.model.res.body.StopByResponseBody;
 import cn.blmdz.train.service.TicketService;
-import cn.blmdz.train.util.HttpsUtil;
+import cn.blmdz.train.util.ConsUtil;
+import cn.blmdz.train.util.RequestUtil;
 
 public class TicketServiceImpl implements TicketService {
-
-	public TicketServiceImpl() {
-		// TODO Auto-generated constructor stub
-	}
 
 	@Override
 	public void extraTicket() {
@@ -21,8 +19,8 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public List<StopByResponseBody> stopBy(StopByRequest request) {
-		HttpsUtil.get();
-		return null;
+
+		return RequestUtil.get(ConsUtil.stopBy, request, StopByResponse.class).getData().getData();
 	}
 
 }
