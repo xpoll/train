@@ -3,8 +3,6 @@ package cn.blmdz.train.util;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
@@ -21,7 +19,6 @@ import org.apache.http.ssl.SSLContextBuilder;
  * https 工具类
  */
 public class HttpsUtil {
-	private static Log logger = LogFactory.getLog(HttpsUtil.class);
 	
 	private static ThreadLocal<CloseableHttpClient> threadLocal = new ThreadLocal<CloseableHttpClient>();
 
@@ -48,7 +45,7 @@ public class HttpsUtil {
             cm = new PoolingHttpClientConnectionManager(registry);
             cm.setMaxTotal(200);
         } catch (Exception e) {
-        	logger.error("ssl 连接建立失败");
+        	System.err.println("ssl 连接建立失败");
         }
     }
     

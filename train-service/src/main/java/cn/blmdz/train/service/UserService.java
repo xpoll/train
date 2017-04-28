@@ -33,5 +33,5 @@ public interface UserService {
 	/**
 	 * 获取验证码
 	 */
-	void getCode();
+	void getVerify();
 }

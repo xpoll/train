@@ -1,7 +1,6 @@
 package cn.blmdz.train.model.base;
 
 import java.util.List;
-import java.util.Map;
 
 import cn.blmdz.train.model.res.StopByResponse;
 import lombok.Data;
@@ -22,8 +21,5 @@ public class BaseResponseData<E>{
 	 * </pre>
 	 */
 	private List<E> data;
-	private List<String> result;
-	private String flag;
-	private Map<String, String> map;
 	
 }
