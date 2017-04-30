@@ -2,8 +2,8 @@
 .factorypath
 *.class
 *.log
-verify.png
-verify.txt
+train-service/verify.png
+train-service/verify.txt
 **/target/**
 **/.settings/**
 .classpath
