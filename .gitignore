@@ -2,7 +2,8 @@
 .factorypath
 *.class
 *.log
-**/verify.*
+verify.png
+verify.txt
 **/target/**
 **/.settings/**
 .classpath
