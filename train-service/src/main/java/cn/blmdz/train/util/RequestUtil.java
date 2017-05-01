@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -20,7 +21,9 @@ public class RequestUtil {
 	
 	public static <T> void getNoResponse(String url, T t) {
 		try {
-			HttpsUtil.get().execute(new HttpGet(url + "?" + (t == null ? "" : MapperUtil.convertParams(t))));
+			url = url + (t == null ? "" : "?" + MapperUtil.convertParams(t));
+			HttpEntity entity = HttpsUtil.get().execute(new HttpGet(url)).getEntity();
+			returnStr(entity, url, "get");
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -31,16 +34,13 @@ public class RequestUtil {
 	@SuppressWarnings("unchecked")
 	public static <T, E> T get(String url, E t, Class<T> clazz) {
 		try {
-			url = url + "?" + (t == null ? "" : MapperUtil.convertParams(t));
-			System.out.println("url: " + url);
-			HttpEntity entity = HttpsUtil.get()
-				.execute(new HttpGet(url))
-				.getEntity();
+			url = url + (t == null ? "" : "?" + MapperUtil.convertParams(t));
+			HttpEntity entity = HttpsUtil.get().execute(new HttpGet(url)).getEntity();
 			// 验证码处理
 			if (clazz == InputStream.class) {
 				return (T) entity.getContent();
 			}
-			return MapperUtil.mapper.readValue(EntityUtils.toString(entity), clazz);
+			return MapperUtil.mapper.readValue(returnStr(entity, url, "get"), clazz);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -58,8 +58,7 @@ public class RequestUtil {
 			}
 			post.setEntity(new UrlEncodedFormEntity(list));
 			HttpEntity entity = HttpsUtil.get().execute(post).getEntity();
-
-			System.out.println(EntityUtils.toString(entity)); // TODO
+			returnStr(entity, url, "post");
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -72,8 +71,7 @@ public class RequestUtil {
 			HttpPost post = new HttpPost(url);
 			post.setEntity(new UrlEncodedFormEntity(list));
 			HttpEntity entity = HttpsUtil.get().execute(post).getEntity();
-
-			System.out.println(EntityUtils.toString(entity)); // TODO
+			returnStr(entity, url, "post");
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -90,7 +88,7 @@ public class RequestUtil {
 			}
 			post.setEntity(new UrlEncodedFormEntity(list));
 			HttpEntity entity = HttpsUtil.get().execute(post).getEntity();
-			return MapperUtil.mapper.readValue(EntityUtils.toString(entity), clazz);
+			return MapperUtil.mapper.readValue(returnStr(entity, url, "post"), clazz);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -104,12 +102,21 @@ public class RequestUtil {
 			HttpPost post = new HttpPost(url);
 			post.setEntity(new UrlEncodedFormEntity(list));
 			HttpEntity entity = HttpsUtil.get().execute(post).getEntity();
-			return MapperUtil.mapper.readValue(EntityUtils.toString(entity), clazz);
+			return MapperUtil.mapper.readValue(returnStr(entity, url, "post"), clazz);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private static String returnStr(HttpEntity entity, String url, String methods) throws ParseException, IOException {
+		String response = EntityUtils.toString(entity);
+		System.out.println(methods + ": " + url);
+		if (!url.equals(ConsUtil.loginInit)) {
+			System.out.println("response:" + response);
+		}
+		return response;
 	}
 }

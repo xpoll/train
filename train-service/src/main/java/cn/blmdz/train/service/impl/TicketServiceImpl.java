@@ -18,6 +18,12 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
+	public void extraTicketPrice() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public List<StopByResponseBody> stopBy(StopByRequest request) {
 
 		return RequestUtil.get(ConsUtil.stopBy, request, StopByResponse.class).getData().getData();

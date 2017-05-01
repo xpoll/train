@@ -12,8 +12,15 @@ public interface TicketService {
 
 	/**
 	 * 查询余票
+	 * TODO
 	 */
 	void extraTicket();
+	
+	/**
+	 * 查询余票价格
+	 * TODO
+	 */
+	void extraTicketPrice();
 	
 	/**
 	 * 查询列车经停站
