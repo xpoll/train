@@ -83,8 +83,8 @@ public class ServerTest {
 		}
 
 		List<NameValuePair> list = Lists.newArrayList();
-		list.add(new BasicNameValuePair("loginUserDTO.user_name", "blmdz521"));
-		list.add(new BasicNameValuePair("userDTO.password", "blmdz520"));
+		list.add(new BasicNameValuePair("loginUserDTO.user_name", "sfafasf"));
+		list.add(new BasicNameValuePair("userDTO.password", "asfasfasfaf"));
 		list.add(new BasicNameValuePair("randCode", randCode));
 		LoginResponse loginres = RequestUtil.post(ConsUtil.login, list, LoginResponse.class);
 		if (loginres.getMessages().length == 0 && loginres.getData().getLoginCheck().equals("Y")) {
