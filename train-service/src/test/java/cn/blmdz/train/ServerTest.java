@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -20,6 +22,7 @@ import cn.blmdz.train.model.base.BasePage;
 import cn.blmdz.train.model.enums.VerityEnum;
 import cn.blmdz.train.model.req.StopByRequest;
 import cn.blmdz.train.model.req.VerifyCodeRequest;
+import cn.blmdz.train.model.res.ExtraTicketResponse;
 import cn.blmdz.train.model.res.LoginResponse;
 import cn.blmdz.train.model.res.PartnerResponse;
 import cn.blmdz.train.model.res.StopByResponse;
@@ -34,8 +37,10 @@ public class ServerTest {
 	static {
 		HttpsUtil.init();
 	}
-	
-	@Test
+
+	/**
+	 * 经停站
+	 */
 	public void stopBy() {
 		StopByRequest req = new StopByRequest();
 		req.setTo_station_telecode("AOH");
@@ -45,8 +50,30 @@ public class ServerTest {
 		
 		RequestUtil.get(ConsUtil.stopBy, req, StopByResponse.class);
 	}
+
+	/**
+	 * 查询余票
+	 * TODO
+	 */
+	@Test
+	public void extraTicket() {
+		Map<String, String> map = new LinkedHashMap<>();
+		map.put("leftTicketDTO.train_date", "2017-05-02");
+		map.put("leftTicketDTO.from_station", "BJP");
+		map.put("leftTicketDTO.to_station", "SHH");
+		map.put("purpose_codes", "ADULT");
+		ExtraTicketResponse response = RequestUtil.get(ConsUtil.extraTicket, map, ExtraTicketResponse.class);
+		System.out.println(response.toString());
+	}
 	
-//	@Test
+	/**
+	 * 查询余票价格
+	 * TODO
+	 */
+	public void extraTicketPrice() {
+		
+	}
+	
 	public void partner() throws Exception {
 		this.login();
 		RequestUtil.post(ConsUtil.partner, new BasePage(), PartnerResponse.class);
@@ -57,7 +84,7 @@ public class ServerTest {
 	 * 启动后您有15秒的时间去启动[verify.html]识别验证码并将结果替换至[verify.txt]
 	 * 验证码成功后才能后续测试
 	 */
-	public void login() throws Exception {
+	private void login() throws Exception {
 		// 登陆需请求初始化登陆一次-否则登陆报系统忙异常
 		RequestUtil.getNoResponse(ConsUtil.loginInit, null);
 		

@@ -18,4 +18,6 @@ public class ConsUtil {
 	public final static String loginout = "https://kyfw.12306.cn/otn/login/loginOut";
 	
 	public final static String partner = "https://kyfw.12306.cn/otn/passengers/query";
+	
+	public final static String extraTicket = "https://kyfw.12306.cn/otn/leftTicket/query";
 }
