@@ -9,5 +9,6 @@
 .idea
 *.iml
 .metadata/**
+**/application.yaml
 logging.fileDir*
 /target/

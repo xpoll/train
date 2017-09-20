@@ -1,0 +1,25 @@
+##################
+### jsp set
+##################
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+##################
+### log set
+##################
+logging:
+  file: /home/user/logs/train-web.log
+  level.*: INFO
+  level.cn.blmdz.stage: DEBUG
+
+##################
+### server set
+##################
+server:
+  context-path: /
+  port: 8077
+  session:
+    timeout: 1800
